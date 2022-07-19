@@ -11,4 +11,14 @@ const scripSchema = (sequelize, dataTypes) => {
       foreignKey: ativo, as: 'venda'
     })
   }
+
+  scripTable.associate = (models) => {
+    scripTable.hasMany(models.Compra, {
+      foreignKey: ativo, as: 'compras'
+    })
+  }
+
+  return scripTable;
 }
+
+module.exports = scripSchema;

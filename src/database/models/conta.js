@@ -1,16 +1,18 @@
 const walletSchema = (sequelize, dataTypes) => {
   const walletTable = sequelize.define('Conta', {
-    codConta: { allowNull: false, type: dataTypes.INTEGER, autoIncrement: true, primaryKey: true},
+    codConta: {
+      allowNull: false, type: dataTypes.INTEGER, autoIncrement: true, primaryKey: true,
+    },
     saldo: dataTypes.DECIMAL,
-  }, { timestamps: false, underscored: true })
+  }, { timestamps: false, underscored: true });
 
   walletTable.associate = (models) => {
     walletTable.belongsTo(models.Usuario, {
-      foreignKey: 'usuario', as: 'usuarios'
-    })
-  }
+      foreignKey: 'usuario', as: 'usuarios',
+    });
+  };
 
-  return walletTable
-}
+  return walletTable;
+};
 
 module.exports = walletSchema;

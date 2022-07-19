@@ -1,4 +1,4 @@
-const { createUser } = require('../services/users.services');
+const { createUser, deleteUser } = require('../services/users.services');
 
 const create = async (req, res) => {
   const newUser = await createUser(req.body);
@@ -6,4 +6,11 @@ const create = async (req, res) => {
   res.status(201).json({ message: `Usuário ${newUser} criado com sucesso!` });
 };
 
-module.exports = { create };
+const remove = async (req, res) => {
+  const codUsuario = req.params.id;
+  await deleteUser(codUsuario);
+
+  return res.status(204).json({ message: `Usuário ${codUsuario} deletado com sucesso!` });
+};
+
+module.exports = { create, remove };

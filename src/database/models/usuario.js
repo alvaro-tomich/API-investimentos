@@ -11,6 +11,12 @@ const userSchema = (sequelize, dataTypes) => {
       foreignKey: 'usuario', as: 'enderecos'
     });
   }
+
+  userTable.associate = (models) => {
+    userTable.hasOne(models.Conta, {
+      foreignKey: 'usuario', as: 'conta'
+    });
+  }
   
   return userTable;
 };

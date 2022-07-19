@@ -7,7 +7,8 @@ module.exports = {
         numero: 1234,
         bairro: 'Santa Rita',
         cidade: 'Governador Valadares',
-        estado: 'MG'
+        estado: 'MG',
+        usuario: 1
       },
       {
         cod_endereco: 2,
@@ -15,7 +16,8 @@ module.exports = {
         numero: 1502,
         bairro: 'Santa Rita',
         cidade: 'Governador Valadares',
-        estado: 'MG'
+        estado: 'MG',
+        usuario: 2
       },
       ], { timestamps: false });
   },

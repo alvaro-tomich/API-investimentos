@@ -17,6 +17,12 @@ const userSchema = (sequelize, dataTypes) => {
       foreignKey: 'usuario', as: 'conta'
     });
   }
+
+  userTable.associate = (models) => {
+    userTable.hasMany(models.Venda, {
+      foreignKey: 'usuario', as: 'vendas' 
+    })
+  }
   
   return userTable;
 };

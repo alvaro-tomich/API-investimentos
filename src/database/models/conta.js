@@ -4,7 +4,7 @@ const walletSchema = (sequelize, dataTypes) => {
       allowNull: false, type: dataTypes.INTEGER, autoIncrement: true, primaryKey: true,
     },
     saldo: dataTypes.DECIMAL,
-  }, { timestamps: false, underscored: true });
+  }, { timestamps: false, underscored: true, tableName: 'Conta' });
 
   walletTable.associate = (models) => {
     walletTable.belongsTo(models.Usuario, {

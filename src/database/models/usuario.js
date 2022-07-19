@@ -5,6 +5,12 @@ const userSchema = (sequelize, dataTypes) => {
       senha: dataTypes.STRING,
       email: { type: dataTypes.STRING, allowNull: false, unique: true },
   }, { timestamps: false, underscored: true })
+
+  userTable.associate = (models) => {
+    userTable.hasOne(models.Endereco, {
+      foreignKey: 'usuario', as: 'enderecos'
+    });
+  }
   
   return userTable;
 };

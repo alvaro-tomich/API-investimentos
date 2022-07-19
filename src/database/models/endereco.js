@@ -8,6 +8,12 @@ const addressSchema = (sequelize, dataTypes) => {
     estado: dataTypes.STRING,
   }, { timestamps: false, underscored: true })
 
+  addressTable.associate = (models) => {
+    addressTable.belongsTo(models.Usuario, {
+      foreignKey: 'usuario', as: 'usuarios'
+    })
+  }
+
   return addressTable;
 };
 

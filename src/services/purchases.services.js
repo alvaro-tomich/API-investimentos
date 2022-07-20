@@ -15,10 +15,24 @@ const updateBalance = async (codCliente, valor) => {
 const mesclateScripAndClient = async (codCliente, codAtivo, qtdAtivo) => {
   const ativo = await Ativo.findByPk(codAtivo);
   const total = ativo.valorAtivo * qtdAtivo;
+  const [ativoCliente] = await AtivoCliente
+    .findAll({ where: { usuario: codCliente, ativo: codAtivo } });
+  if (ativoCliente) {
+    const update = await AtivoCliente.update(
+      {
+        total: ativoCliente.total + total,
+        qtdAtivo: ativoCliente.qtdAtivo + qtdAtivo,
+      },
+      { where: { usuario: codCliente, ativo: codAtivo } },
+    );
+    await updateBalance(codCliente, total);
+    return update;
+  }
   await updateBalance(codCliente, total);
-  await AtivoCliente.create({
+  const newScriptAndClient = await AtivoCliente.create({
     usuario: codCliente, ativo: codAtivo, qtdAtivo, total,
   });
+  return newScriptAndClient;
 };
 
 const purchaseScrip = async ({ codCliente, codAtivo, qtdAtivo }) => {

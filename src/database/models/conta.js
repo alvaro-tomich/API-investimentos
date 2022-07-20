@@ -3,7 +3,7 @@ const walletSchema = (sequelize, dataTypes) => {
     codConta: {
       allowNull: false, type: dataTypes.INTEGER, autoIncrement: true, primaryKey: true,
     },
-    saldo: dataTypes.DECIMAL,
+    saldo: dataTypes.FLOAT,
   }, { timestamps: false, underscored: true, tableName: 'Conta' });
 
   walletTable.associate = (models) => {

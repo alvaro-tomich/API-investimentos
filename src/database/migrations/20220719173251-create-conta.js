@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       saldo: {
-        type: Sequelize.DECIMAL
+        type: Sequelize.FLOAT
       },
       usuario: {
         type: Sequelize.INTEGER,

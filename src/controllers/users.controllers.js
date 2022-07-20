@@ -10,7 +10,7 @@ const remove = async (req, res) => {
   const codUsuario = req.params.id;
   await deleteUser(codUsuario);
 
-  return res.status(204).json({ message: `Usuário ${codUsuario} deletado com sucesso!` });
+  return res.status(204).end();
 };
 
 module.exports = { create, remove };

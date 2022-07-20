@@ -6,7 +6,7 @@ const scripSchema = (sequelize, dataTypes) => {
     nomeAtivo: dataTypes.STRING(10),
     qtdAtivo: dataTypes.INTEGER,
     valorAtivo: dataTypes.DECIMAL,
-  }, { timestamps: false, underscored: true });
+  }, { timestamps: false, underscored: true, tableName: 'Ativos' });
 
   scripTable.associate = (models) => {
     scripTable.hasMany(models.Venda, {

@@ -3,8 +3,8 @@ const purchaseSchema = (sequelize, dataTypes) => {
     codCompra: {
       allowNull: false, type: dataTypes.INTEGER, autoIncrement: true, primaryKey: true,
     },
-    qtdCompra: { allowNull: false, type: dataTypes.INTEGER },
-  }, { timestamps: false, underscored: true });
+    qtdAtivo: { allowNull: false, type: dataTypes.INTEGER },
+  }, { timestamps: false, underscored: true, tableName: 'Compras' });
 
   purchaseTable.associate = (models) => {
     purchaseTable.belongsTo(models.Usuario, {

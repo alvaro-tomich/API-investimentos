@@ -4,7 +4,7 @@ const scriptClientSchema = (sequelize, dataTypes) => {
     ativo: { type: dataTypes.INTEGER, primaryKey: true },
     qtdAtivo: dataTypes.INTEGER,
     total: dataTypes.FLOAT,
-  });
+  }, { timestamps: false, underscored: true, tableName: 'AtivosClientes' });
 
   scriptClientTable.associate = (models) => {
     models.AtivoCliente.belongsToMany(models.Usuario, {

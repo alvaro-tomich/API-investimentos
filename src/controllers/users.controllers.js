@@ -1,9 +1,9 @@
 const { createUser, deleteUser } = require('../services/users.services');
 
 const create = async (req, res) => {
-  const newUser = await createUser(req.body);
+  const token = await createUser(req.body);
 
-  res.status(201).json({ message: `Usuário ${newUser} criado com sucesso!` });
+  res.status(201).json({ token });
 };
 
 const remove = async (req, res) => {

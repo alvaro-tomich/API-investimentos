@@ -25,10 +25,8 @@ const mesclateScripAndClient = async (codCliente, codAtivo, qtdAtivo) => {
       },
       { where: { usuario: codCliente, ativo: codAtivo } },
     );
-    await updateBalance(codCliente, total);
     return update;
   }
-  await updateBalance(codCliente, total);
   const newScriptAndClient = await AtivoCliente.create({
     usuario: codCliente, ativo: codAtivo, qtdAtivo, total,
   });
@@ -36,9 +34,15 @@ const mesclateScripAndClient = async (codCliente, codAtivo, qtdAtivo) => {
 };
 
 const purchaseScrip = async ({ codCliente, codAtivo, qtdAtivo }) => {
+  const ativo = await Ativo.findByPk(codAtivo);
+  const total = ativo.valorAtivo * qtdAtivo;
+  const conta = await Conta.findByPk(codCliente);
+  if (conta.saldo - total <= 0) return false;
+  await updateBalance(codCliente, total);
   await Compra.create({ usuario: codCliente, ativo: codAtivo, qtdAtivo });
   await updateScripQuantity(codAtivo, qtdAtivo);
   await mesclateScripAndClient(codCliente, codAtivo, qtdAtivo);
+  return true;
 };
 
 module.exports = { purchaseScrip };

@@ -8,4 +8,13 @@ const jwtConfig = {
 
 const generateJWTToken = (payload) => jwt.sign(payload, SECRET, jwtConfig);
 
-module.exports = { generateJWTToken };
+const authenticateToken = (token) => {
+  try {
+    const validate = jwt.verify(token, SECRET);
+    return validate;
+  } catch (error) {
+    return false;
+  }
+};
+
+module.exports = { generateJWTToken, authenticateToken };

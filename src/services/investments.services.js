@@ -12,4 +12,6 @@ const getScripService = async (codAtivo) => {
   return ativo;
 };
 
-module.exports = { getByClient, getScripService };
+const getScripsService = () => Ativo.findAll();
+
+module.exports = { getByClient, getScripService, getScripsService };

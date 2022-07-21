@@ -44,6 +44,8 @@ const withdrawServices = async ({ codCliente, valor }) => {
   return true;
 };
 
+const getAccountByCod = ({ codCliente }) => Conta.findAll({ where: { usuario: codCliente } });
+
 module.exports = {
-  createUser, deleteUser, depositServices, withdrawServices,
+  createUser, deleteUser, depositServices, withdrawServices, getAccountByCod,
 };

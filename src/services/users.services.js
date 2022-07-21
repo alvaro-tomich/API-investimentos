@@ -30,4 +30,11 @@ const deleteUser = async (codUsuario) => {
   });
 };
 
-module.exports = { createUser, deleteUser };
+const depositServices = async ({ codCliente, valor }) => {
+  if (valor <= 0) return false;
+  const [conta] = await Conta.findAll({ where: { usuario: codCliente } });
+  await Conta.update({ saldo: conta.saldo + valor }, { where: { usuario: codCliente } });
+  return true;
+};
+
+module.exports = { createUser, deleteUser, depositServices };

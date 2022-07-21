@@ -44,8 +44,15 @@ const withdrawServices = async ({ codCliente, valor }) => {
   return true;
 };
 
+const loginService = async ({ nome, senha }) => {
+  const [cliente] = await Usuario.findAll({ where: { nome, senha } });
+  const token = generateJWTToken(JSON.stringify(cliente));
+
+  return token;
+};
+
 const getAccountByCod = ({ codCliente }) => Conta.findAll({ where: { usuario: codCliente } });
 
 module.exports = {
-  createUser, deleteUser, depositServices, withdrawServices, getAccountByCod,
+  createUser, deleteUser, depositServices, withdrawServices, getAccountByCod, loginService,
 };

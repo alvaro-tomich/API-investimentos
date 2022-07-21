@@ -4,12 +4,13 @@ const {
 } = require('../controllers/users.controllers');
 
 const router = express.Router();
+const validateToken = require('../middlewares/validateToken');
 
 router.post('/user', create);
-router.post('/conta/deposito', deposit);
-router.post('/conta/saque', withdraw);
-router.get('/conta/:codCliente', getAccount);
+router.post('/conta/deposito', validateToken, deposit);
+router.post('/conta/saque', validateToken, withdraw);
+router.get('/conta/:codCliente', validateToken, getAccount);
 router.post('/login', login);
-router.delete('/user/:id', remove);
+router.delete('/user/:id', validateToken, remove);
 
 module.exports = router;

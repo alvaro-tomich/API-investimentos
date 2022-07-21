@@ -1,5 +1,5 @@
 const {
-  createUser, deleteUser, depositServices, withdrawServices, getAccountByCod,
+  createUser, deleteUser, depositServices, withdrawServices, getAccountByCod, loginService,
 } = require('../services/users.services');
 
 const create = async (req, res) => {
@@ -39,6 +39,12 @@ const remove = async (req, res) => {
   return res.status(204).end();
 };
 
+const login = async (req, res) => {
+  const token = await loginService(req.body);
+
+  return res.status(200).json({ token });
+};
+
 module.exports = {
-  create, remove, deposit, withdraw, getAccount,
+  create, remove, deposit, withdraw, getAccount, login,
 };

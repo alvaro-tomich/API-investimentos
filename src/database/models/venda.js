@@ -1,10 +1,11 @@
-const saleSchema = (sequelize, dataTypes) => {
+const salesSchema = (sequelize, dataTypes) => {
   const salesTable = sequelize.define('Venda', {
     codVenda: {
       allowNull: false, type: dataTypes.INTEGER, autoIncrement: true, primaryKey: true,
     },
-    qtdVenda: { allowNull: false, type: dataTypes.INTEGER },
-  }, { timestamps: false, underscored: true });
+    qtdAtivo: { allowNull: false, type: dataTypes.INTEGER },
+    usuario: { type: dataTypes.INTEGER, foreignKey: true },
+  }, { timestamps: false, underscored: true, tableName: 'Vendas' });
 
   salesTable.associate = (models) => {
     salesTable.belongsTo(models.Usuario, {
@@ -21,4 +22,4 @@ const saleSchema = (sequelize, dataTypes) => {
   return salesTable;
 };
 
-module.exports = saleSchema;
+module.exports = salesSchema;

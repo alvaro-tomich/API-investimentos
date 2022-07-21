@@ -5,8 +5,10 @@ const {
 
 const router = express.Router();
 const validateToken = require('../middlewares/validateToken');
+const userSchema = require('../schemas/user.schema');
+const validateBody = require('../middlewares/validateBody');
 
-router.post('/user', create);
+router.post('/user', validateBody(userSchema), create);
 router.post('/conta/deposito', validateToken, deposit);
 router.post('/conta/saque', validateToken, withdraw);
 router.get('/conta/:codCliente', validateToken, getAccount);

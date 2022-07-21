@@ -1,4 +1,4 @@
-const { AtivoCliente } = require('../database/models');
+const { AtivoCliente, Ativo } = require('../database/models');
 
 const getByClient = async (codCliente) => {
   const ativosClientes = await AtivoCliente.findAll({ where: { usuario: codCliente } });
@@ -6,4 +6,10 @@ const getByClient = async (codCliente) => {
   return ativosClientes;
 };
 
-module.exports = { getByClient };
+const getScripService = async (codAtivo) => {
+  const ativo = await Ativo.findByPk(codAtivo);
+
+  return ativo;
+};
+
+module.exports = { getByClient, getScripService };

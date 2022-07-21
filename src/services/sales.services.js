@@ -1,4 +1,6 @@
-const { Venda, AtivoCliente, Ativo } = require('../database/models');
+const {
+  Venda, AtivoCliente, Ativo, Conta,
+} = require('../database/models');
 
 const verifySellQuantity = async (codCliente, codAtivo, qtdAtivo) => {
   const [ativoCliente] = await AtivoCliente
@@ -36,12 +38,20 @@ const updateScriptClient = async (codCliente, codAtivo, qtdAtivo) => {
     );
 };
 
+const updateBalance = async (codCliente, codAtivo, qtdAtivo) => {
+  const ativo = await Ativo.findByPk(codAtivo);
+  const total = ativo.valorAtivo * qtdAtivo;
+  const conta = await Conta.findByPk(codCliente);
+  await Conta.update({ saldo: conta.saldo + total }, { where: { usuario: codCliente } });
+};
+
 const createSale = async ({ codCliente, codAtivo, qtdAtivo }) => {
   const isSeelOk = await verifySellQuantity(codCliente, codAtivo, qtdAtivo);
   if (!isSeelOk) return false;
   await Venda.create({ usuario: codCliente, ativo: codAtivo, qtdAtivo });
   await updateScriptClient(codCliente, codAtivo, qtdAtivo);
   await updateScripQuantity(codAtivo, qtdAtivo);
+  await updateBalance(codCliente, codAtivo, qtdAtivo);
 
   return true;
 };

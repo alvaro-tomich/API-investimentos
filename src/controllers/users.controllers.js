@@ -1,5 +1,5 @@
 const {
-  createUser, deleteUser, depositServices, withdrawServices,
+  createUser, deleteUser, depositServices, withdrawServices, getAccountByCod,
 } = require('../services/users.services');
 
 const create = async (req, res) => {
@@ -24,6 +24,14 @@ const withdraw = async (req, res) => {
   return res.status(201).json({ message: 'Saque realizado com sucesso' });
 };
 
+const getAccount = async (req, res) => {
+  const [account] = await getAccountByCod(req.params);
+  if (!account) {
+    return res.status(404).json({ message: 'Conta não encontrada' });
+  }
+  return res.status(200).json(account);
+};
+
 const remove = async (req, res) => {
   const codUsuario = req.params.id;
   await deleteUser(codUsuario);
@@ -32,5 +40,5 @@ const remove = async (req, res) => {
 };
 
 module.exports = {
-  create, remove, deposit, withdraw,
+  create, remove, deposit, withdraw, getAccount,
 };

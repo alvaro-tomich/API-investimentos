@@ -10,9 +10,11 @@ const verifySellQuantity = async (codCliente, codAtivo, qtdAtivo) => {
   return true;
 };
 
-const updateScripQuantity = async (codAtivo, qtdAtivo) => {
+const updateScripQuantityAndValue = async (codAtivo, qtdAtivo) => {
   const ativo = await Ativo.findByPk(codAtivo);
-  await Ativo.update({ qtdAtivo: ativo.qtdAtivo + qtdAtivo }, { where: { codAtivo } });
+  const newTotal = ativo.total - (ativo.valorAtivo * qtdAtivo);
+  await Ativo
+    .update({ qtdAtivo: ativo.qtdAtivo + qtdAtivo, total: newTotal }, { where: { codAtivo } });
 };
 
 const updateScriptClient = async (codCliente, codAtivo, qtdAtivo) => {
@@ -50,7 +52,7 @@ const createSale = async ({ codCliente, codAtivo, qtdAtivo }) => {
   if (!isSeelOk) return false;
   await Venda.create({ usuario: codCliente, ativo: codAtivo, qtdAtivo });
   await updateScriptClient(codCliente, codAtivo, qtdAtivo);
-  await updateScripQuantity(codAtivo, qtdAtivo);
+  await updateScripQuantityAndValue(codAtivo, qtdAtivo);
   await updateBalance(codCliente, codAtivo, qtdAtivo);
 
   return true;

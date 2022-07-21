@@ -1,4 +1,6 @@
-const { createUser, deleteUser, depositServices } = require('../services/users.services');
+const {
+  createUser, deleteUser, depositServices, withdrawServices,
+} = require('../services/users.services');
 
 const create = async (req, res) => {
   const token = await createUser(req.body);
@@ -11,7 +13,15 @@ const deposit = async (req, res) => {
   if (!newDeposit) {
     return res.status(422).json({ message: 'Quantidade a ser depositada deve ser maior que zero!' });
   }
-  return res.status(201).json({ message: 'Depósito feito com sucesso' });
+  return res.status(201).json({ message: 'Depósito realizado com sucesso' });
+};
+
+const withdraw = async (req, res) => {
+  const newWithdraw = await withdrawServices(req.body);
+  if (!newWithdraw) {
+    return res.status(422).json({ message: 'Valor deve ser maior que zero e menor que o saldo atual!' });
+  }
+  return res.status(201).json({ message: 'Saque realizado com sucesso' });
 };
 
 const remove = async (req, res) => {
@@ -21,4 +31,6 @@ const remove = async (req, res) => {
   return res.status(204).end();
 };
 
-module.exports = { create, remove, deposit };
+module.exports = {
+  create, remove, deposit, withdraw,
+};

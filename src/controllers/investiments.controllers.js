@@ -1,4 +1,4 @@
-const { getByClient, getScripService } = require('../services/investments.services');
+const { getByClient, getScripService, getScripsService } = require('../services/investments.services');
 
 const getScripClient = async (req, res) => {
   const { codCliente } = req.params;
@@ -14,4 +14,10 @@ const getScrip = async (req, res) => {
   return res.status(200).json(ativo);
 };
 
-module.exports = { getScripClient, getScrip };
+const getScrips = async (_req, res) => {
+  const scrips = await getScripsService();
+
+  return res.status(200).json(scrips);
+};
+
+module.exports = { getScripClient, getScrip, getScrips };

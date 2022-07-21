@@ -37,4 +37,13 @@ const depositServices = async ({ codCliente, valor }) => {
   return true;
 };
 
-module.exports = { createUser, deleteUser, depositServices };
+const withdrawServices = async ({ codCliente, valor }) => {
+  const [conta] = await Conta.findAll({ where: { usuario: codCliente } });
+  if (valor <= 0 || valor > conta.saldo) return false;
+  await Conta.update({ saldo: conta.saldo - valor }, { where: { usuario: codCliente } });
+  return true;
+};
+
+module.exports = {
+  createUser, deleteUser, depositServices, withdrawServices,
+};

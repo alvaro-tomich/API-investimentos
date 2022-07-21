@@ -5,7 +5,8 @@ const scripSchema = (sequelize, dataTypes) => {
     },
     nomeAtivo: dataTypes.STRING(10),
     qtdAtivo: dataTypes.INTEGER,
-    valorAtivo: dataTypes.DECIMAL,
+    valorAtivo: dataTypes.FLOAT,
+    total: dataTypes.FLOAT,
   }, { timestamps: false, underscored: true, tableName: 'Ativos' });
 
   scripTable.associate = (models) => {

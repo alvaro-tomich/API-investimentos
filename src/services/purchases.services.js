@@ -2,9 +2,14 @@ const {
   Compra, Ativo, AtivoCliente, Conta,
 } = require('../database/models');
 
-const updateScripQuantity = async (codAtivo, qtdAtivo) => {
+const updateScripQuantityAndTotal = async (codAtivo, qtdAtivo) => {
   const ativo = await Ativo.findByPk(codAtivo);
-  await Ativo.update({ qtdAtivo: ativo.qtdAtivo - qtdAtivo }, { where: { codAtivo } });
+  const newTotal = ativo.total + (ativo.valorAtivo * qtdAtivo);
+  await Ativo
+    .update({
+      qtdAtivo: ativo.qtdAtivo - qtdAtivo,
+      total: newTotal,
+    }, { where: { codAtivo } });
 };
 
 const updateBalance = async (codCliente, valor) => {
@@ -40,7 +45,7 @@ const purchaseScrip = async ({ codCliente, codAtivo, qtdAtivo }) => {
   if (conta.saldo - total <= 0) return false;
   await updateBalance(codCliente, total);
   await Compra.create({ usuario: codCliente, ativo: codAtivo, qtdAtivo });
-  await updateScripQuantity(codAtivo, qtdAtivo);
+  await updateScripQuantityAndTotal(codAtivo, qtdAtivo);
   await mesclateScripAndClient(codCliente, codAtivo, qtdAtivo);
   return true;
 };

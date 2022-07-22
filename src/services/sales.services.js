@@ -43,7 +43,7 @@ const updateScriptClient = async (codCliente, codAtivo, qtdAtivo) => {
 const updateBalance = async (codCliente, codAtivo, qtdAtivo) => {
   const ativo = await Ativo.findByPk(codAtivo);
   const total = ativo.valorAtivo * qtdAtivo;
-  const conta = await Conta.findByPk(codCliente);
+  const [conta] = await Conta.findAll({ where: { usuario: codCliente } });
   await Conta.update({ saldo: conta.saldo + total }, { where: { usuario: codCliente } });
 };
 

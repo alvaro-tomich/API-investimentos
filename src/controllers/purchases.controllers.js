@@ -15,7 +15,7 @@ const purchase = async (req, res) => {
     }
     await updateScripQuantityAndTotal(req.body);
     await mesclateScripAndClient(req.body);
-    return res.status(201).json({ message: 'Compra efetuada com sucesso!' });
+    return res.status(201).json(req.body);
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: 'Erro interno!' });

@@ -16,7 +16,7 @@ const create = async (req, res) => {
     await updateScripQuantityAndValue(req.body);
     await updateScriptClient(req.body);
     await updateBalance(req.body);
-    return res.status(201).json({ message: 'Venda realizada com sucesso!' });
+    return res.status(201).json(req.body);
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: 'Erro interno!' });

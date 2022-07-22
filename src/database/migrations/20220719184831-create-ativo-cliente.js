@@ -1,4 +1,3 @@
-'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('AtivosClientes', {
@@ -24,14 +23,14 @@ module.exports = {
       },
       qtdAtivo: {
         type: Sequelize.INTEGER,
-        field: 'qtd_ativo'
+        field: 'qtd_ativo',
       },
-      total: {
+      valor: {
         type: Sequelize.FLOAT,
       },
     });
   },
-  async down(queryInterface, Sequelize) {
+  async down(queryInterface) {
     await queryInterface.dropTable('AtivosClientes');
-  }
+  },
 };

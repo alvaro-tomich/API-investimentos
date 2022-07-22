@@ -1,5 +1,5 @@
 const {
-  Venda, AtivoCliente, Ativo, Conta,
+  Venda, AtivoCliente, Ativo, Conta, Usuario,
 } = require('../database/models');
 
 const verifySellQuantity = async (codCliente, codAtivo, qtdAtivo) => {
@@ -47,6 +47,14 @@ const updateBalance = async ({ codCliente, codAtivo, qtdAtivo }) => {
   await Conta.update({ saldo: conta.saldo + total }, { where: { usuario: codCliente } });
 };
 
+const verifyScripAndClient = async ({ codCliente, codAtivo }) => {
+  const ativo = await Ativo.findByPk(codAtivo);
+  if (!ativo) return { error: 404, message: 'Ativo não encontrado!' };
+  const usuario = await Usuario.findByPk(codCliente);
+  if (!usuario) return { error: 404, message: 'Usuario não encontrado!' };
+  return {};
+};
+
 const createSale = async ({ codCliente, codAtivo, qtdAtivo }) => {
   const isSeelOk = await verifySellQuantity(codCliente, codAtivo, qtdAtivo);
   if (!isSeelOk) return false;
@@ -56,5 +64,5 @@ const createSale = async ({ codCliente, codAtivo, qtdAtivo }) => {
 };
 
 module.exports = {
-  createSale, updateBalance, updateScriptClient, updateScripQuantityAndValue,
+  createSale, updateBalance, updateScriptClient, updateScripQuantityAndValue, verifyScripAndClient,
 };

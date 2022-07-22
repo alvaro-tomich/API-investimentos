@@ -51,8 +51,29 @@ const loginService = async ({ nome, senha }) => {
   return token;
 };
 
+const verifyUser = async ({ nome, senha }) => {
+  const [cliente] = await Usuario.findAll({ where: { nome, senha } });
+  if (!cliente) return { error: 404, message: 'Usuário não encontrado' };
+
+  return {};
+};
+
+const getUser = async (id) => {
+  const cliente = await Usuario.findByPk(id);
+  if (!cliente) return { error: 404, message: 'Usuário não encontrado' };
+
+  return cliente;
+};
+
 const getAccountByCod = ({ codCliente }) => Conta.findAll({ where: { usuario: codCliente } });
 
 module.exports = {
-  createUser, deleteUser, depositServices, withdrawServices, getAccountByCod, loginService,
+  createUser,
+  deleteUser,
+  depositServices,
+  withdrawServices,
+  getAccountByCod,
+  loginService,
+  verifyUser,
+  getUser,
 };

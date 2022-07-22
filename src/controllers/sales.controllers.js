@@ -1,5 +1,7 @@
 /* eslint-disable no-console */
-const { createSale } = require('../services/sales.services');
+const {
+  createSale, updateBalance, updateScriptClient, updateScripQuantityAndValue,
+} = require('../services/sales.services');
 
 const create = async (req, res) => {
   try {
@@ -7,6 +9,9 @@ const create = async (req, res) => {
     if (!isSaleOk) {
       return res.status(422).json({ message: 'Quantidade insuficiente!' });
     }
+    await updateScripQuantityAndValue(req.body);
+    await updateScriptClient(req.body);
+    await updateBalance(req.body);
     return res.status(201).json({ message: 'Venda realizada com sucesso!' });
   } catch (error) {
     console.log(error);

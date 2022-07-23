@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha ./src/tests/**/**$NAME**.test.js --exit",
-    "dev": "nodemon ./src/index.js"
+    "dev": "nodemon ./src/index.js",
+    "prestart": "npx sequelize-cli db:create && npx sequelize-cli db:migrate",
+    "seed": "npx sequelize-cli db:seed:all",
+    "heroku":"node ./src/index.js",
+    "npm start":"npm run heroku"
   },
   "repository": {
     "type": "git",

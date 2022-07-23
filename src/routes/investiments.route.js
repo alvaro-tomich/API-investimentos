@@ -101,7 +101,7 @@ router.get('/investimentos/:codCliente', validateToken, getScripClient);
   *                $ref: '#/components/schemas/Ativo'
  */
 
-router.get('/ativos', validateToken, getScrips);
+router.get('/ativos', /* validateToken */ getScrips);
 
 /**
   * @swagger

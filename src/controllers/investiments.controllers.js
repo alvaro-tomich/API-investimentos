@@ -5,6 +5,10 @@ const getScripClient = async (req, res) => {
   const { codCliente } = req.params;
   try {
     const ativosClientes = await getByClient(codCliente);
+    if (ativosClientes.error) {
+      const { error, message } = ativosClientes;
+      return res.status(error).json({ message });
+    }
     return res.status(200).json(ativosClientes);
   } catch (error) {
     console.log(error);
@@ -16,6 +20,10 @@ const getScrip = async (req, res) => {
   const { codAtivo } = req.params;
   try {
     const ativo = await getScripService(codAtivo);
+    if (ativo.error) {
+      const { error, message } = ativo;
+      return res.status(error).json({ message });
+    }
     return res.status(200).json(ativo);
   } catch (error) {
     console.log(error);

@@ -9,6 +9,9 @@ const swaggerConfig = {
     servers: [{
       url: 'http://localhost:3000',
       description: 'servidor local',
+    }, {
+      url: 'https://api-investimentos.herokuapp.com/',
+      description: 'servidor remoto',
     }],
     components: {
       securitySchemes: {

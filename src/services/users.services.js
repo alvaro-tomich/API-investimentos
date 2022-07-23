@@ -16,12 +16,15 @@ const createAddress = async (rua, numero, bairro, cidade, estado, usuario) => {
 const createUser = async ({
   nome, senha, email, rua, numero, bairro, cidade, estado,
 }) => {
+  const [userExists] = await Usuario.findAll({ where: { nome, senha, email } });
+  const [clienteByEmail] = await Usuario.findAll({ where: { email } });
+  if (userExists || clienteByEmail) return { error: 422, message: 'Usuário já cadastrado no sistema!' };
   const newUser = await Usuario.create({ nome, senha, email });
   await createWallet(0, newUser.codUsuario);
   await createAddress(rua, numero, bairro, cidade, estado, newUser.codUsuario);
-  const token = generateJWTToken(JSON.stringify(newUser));
+  const token = generateJWTToken(JSON.stringify({ nome, email }));
 
-  return token;
+  return { token, codUsuario: newUser.codUsuario };
 };
 
 const deleteUser = async (codUsuario) => {

@@ -5,10 +5,12 @@ const tokenMiddleware = async (req, res, next) => {
   if (!authorization) {
     return res.status(401).json({ message: 'Token not found' });
   }
-  const user = authenticateToken(authorization);
+  const token = authorization.replace('Bearer ', '');
+  const user = authenticateToken(token);
   if (!user) {
     return res.status(401).json({ message: 'Expired or invalid token' });
   }
+
   return next();
 };
 

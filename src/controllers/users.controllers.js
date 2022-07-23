@@ -12,9 +12,12 @@ const {
 
 const create = async (req, res) => {
   try {
-    const token = await createUser(req.body);
-
-    return res.status(201).json({ token });
+    const newUser = await createUser(req.body);
+    console.log(newUser);
+    if (newUser.error) {
+      return res.status(newUser.error).json({ message: newUser.message });
+    }
+    return res.status(201).json(newUser);
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: 'Erro interno!' });
@@ -33,7 +36,7 @@ const deposit = async (req, res) => {
       return res.status(422).json({ message: 'Quantidade a ser depositada deve ser maior que zero!' });
     }
 
-    return res.status(201).json({ message: 'Depósito realizado com sucesso' });
+    return res.status(201).json(req.body);
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: 'Erro interno!' });
@@ -52,7 +55,7 @@ const withdraw = async (req, res) => {
       return res.status(422).json({ message: 'Valor deve ser maior que zero e menor que o saldo atual!' });
     }
 
-    return res.status(201).json({ message: 'Saque realizado com sucesso' });
+    return res.status(201).json(req.body);
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: 'Erro interno!' });

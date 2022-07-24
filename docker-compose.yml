@@ -11,10 +11,21 @@ services:
     stdin_open: true
     command: bash
     restart: always
+    depends_on:
+    - db
     ports:
       - 3000:3000
     environment:
-      MYSQL_USER: root
-      MYSQL_PASSWORD: password
+      DB_USERNAME: root
+      PASSWORD_POSTGRES: password
       HOSTNAME: investimentos
       JWT_SECRET: secretJWT
+  db:
+    container_name: api-investimentos-db
+    image: mysql:8.0.21
+    restart: always
+    ports:
+      - 3306:3306
+      - 33060:33060
+    environment:
+      MYSQL_ROOT_PASSWORD: password

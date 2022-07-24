@@ -1,12 +1,20 @@
 version: '3.4'
 
 services:
-  db:
-    container_name: investimentos_db
-    image: mysql:8.0.21
+  node:
+    image: node
+    container_name: api-investimentos
+    working_dir: /app
+    volumes:
+      - ./:/app
+    tty: true
+    stdin_open: true
+    command: bash
     restart: always
     ports:
-      - 3306:3306
-      - 33060:33060
+      - 3000:3000
     environment:
-      MYSQL_ROOT_PASSWORD: password
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      HOSTNAME: investimentos
+      JWT_SECRET: secretJWT

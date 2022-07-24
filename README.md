@@ -41,14 +41,26 @@ O presente projeto foi desenvolvido durante a participação do processo seletiv
   - Ao clonar o repositório entre nele utilizando o seguinte comando: `cd API-investimentos`.
   - Abra o vscode utilizando o seguinte comando: `code .`.
 
+  > Renomeie o arquivo .envexample para .env e configure as variáveis de ambiente.
+  - exemplo: PORT:3000, PASSWORD_POSTGRES:password;
+
   > No terminal do VSCode Rode o comando `docker-compose up -d`.
   - Esse serviço irá inicializar um container chamado `api-investimentos`.
+  - Esse serviço irá inicializar um container do banco de dados.
   - A partir daqui você pode rodar o container `api-investimentos` via CLI.
+  - Ao rodar o docker-compose vocẽ já consegue acessar o workbench mysql pela conexão via docker utilizando as variáveis de ambiente.
+  - Ex: crie uma nova conexão no mysql workbench utilizando o password escolhido no .env, o host e a porta 3306;
+  - Caso a conexão não funcione execute os dois próximos passos e volte nesse.
+
 
   > Use o comando: `docker exec -it api-investimentos bash`.
   - Ele te dará acesso ao terminal interativo do container criado pelo compose, que está rodando em segundo plano.
 
   > Instale as dependências com `npm install`
+
+  > Rode o comando `npx sequelize db:create && npx sequelize db:migrate && npx sequelize db:seed:all`
+  - Esse comando irá criar e popular o banco de dados;
+  - O seed de dados já possui 2 usuários por padrão;
 
   > Rode o comando `npm run dev`
   - Esse comando deixará a aplicação pronta para ser realizaro requisições.
@@ -60,8 +72,13 @@ O presente projeto foi desenvolvido durante a participação do processo seletiv
   > No terminal clone o repositório: `git clone git@github.com:alvaro-tomich/API-investimentos.git`.
   - Ao clonar o repositório entre nele utilizando o seguinte comando: `cd API-investimentos`.
   - Abra o vscode utilizando o seguinte comando: `code .`.
+
+  > Renomeie o arquivo .envexample para .env e configure as variáveis de ambiente.
+  - exemplo: PORT:3000, PASSWORD_POSTGRES:password;
   
   > No terminal do VSCode rode o comando `npm install`
+
+  > Crie uma nova conexão com o mysql workbench baseada nas suas variáveis de ambiente.
 
   > Rode o comando `npm run dev`
   - Esse comando deixará a aplicação pronta para ser realizado requisições.

@@ -10,3 +10,4 @@ HOST=127.0.0.1
 DATABASE=Investimentos
 DB_USERNAME=root
 DB_PORT=3306
+DIALECT=mysql
